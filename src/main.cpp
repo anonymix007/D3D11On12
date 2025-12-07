@@ -2,9 +2,12 @@
 // Licensed under the MIT License.
 #include "pch.hpp"
 
+#if 0
 #define INITGUID
 #include <coguid.h>
+#endif
 
+#if 0
 #define D3D11ON12_PROVIDER_GUID (0xa0ab5aac, 0xe0a4, 0x4f10, 0x83, 0xc6, 0x31, 0x93, 0x9c, 0x60, 0x4f, 0xd9)
 #define D3D11ON12_PROVIDER_DESC "Microsoft.Windows.Graphics.D3D11On12"
 
@@ -14,7 +17,7 @@ TRACELOGGING_DEFINE_PROVIDER(
     D3D11ON12_PROVIDER_GUID,
     TraceLoggingOptionMicrosoftTelemetry()
 );
-
+#endif
 
 typedef BOOL ( WINAPI * PCOMPATVALUE ) ( 
     __in __nullterminated const char * pValueName, 
@@ -35,7 +38,7 @@ bool GetCompatValue(const char* str, UINT64* pValue)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
-extern "C" extern BOOL WINAPI DllMain(
+extern "C" BOOL WINAPI DllMain(
     HINSTANCE hInstance,
     UINT dwReason,
     LPVOID ) noexcept
@@ -47,12 +50,16 @@ extern "C" extern BOOL WINAPI DllMain(
     {
     case (DLL_PROCESS_ATTACH):
         DisableThreadLibraryCalls( hInstance );
+#if 0
         TraceLoggingRegister(g_hD3D11On12TraceLoggingProvider);
         D3D12TranslationLayer::SetTraceloggingProvider(g_hD3D11On12TraceLoggingProvider);
+#endif
         break;
 
     case (DLL_PROCESS_DETACH): // DLL_PROCESS_DETACH will be sent even if DLL_PROCESS_ATTACH fails
+#if 0
         TraceLoggingUnregister(g_hD3D11On12TraceLoggingProvider);
+#endif
         break;
     }
 

@@ -47,7 +47,7 @@ namespace D3D11On12
 
         DXGI_FORMAT ViewFormat;
 
-        C_ASSERT(sizeof(D3D12_RECT) == sizeof(D3D10_DDI_RECT));
+        static_assert(sizeof(D3D12_RECT) == sizeof(D3D10_DDI_RECT));
         const D3D12_RECT *pRects12 = reinterpret_cast<const D3D12_RECT*>(pRects);
         switch (HandleType)
         {

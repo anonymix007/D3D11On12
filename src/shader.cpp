@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 #include "pch.hpp"
-#include <dxc\Dxcapi.h>
+#include <dxc/dxcapi.h>
 #include <DxbcConverter.h>
-#include <dxc\DxilContainer\dxilpipelinestatevalidation.h>
+#include <dxc/DxilContainer/dxilpipelinestatevalidation.h>
 
 namespace D3D11On12
 {

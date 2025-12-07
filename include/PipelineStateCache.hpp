@@ -127,11 +127,14 @@ namespace D3D11On12
     {
         using CacheEntry = PipelineStateCacheEntry<Key>;
         std::vector<std::weak_ptr<CacheEntry>> m_pPSOComponents;
+#if defined(__GNUC__) && !defined(__clang__)
         PipelineStateCacheLocked<Key> GetCache()
         {
-            return m_parentDevice.GetPSOCache<Key>();
+            return m_parentDevice.template GetPSOCache<Key>();
         }
-
+#else
+        PipelineStateCacheLocked<Key> GetCache();
+#endif
         // Immovable
         PipelineStateCacheKeyComponent(Device& device)
             : DeviceChild(device)

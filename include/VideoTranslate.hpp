@@ -83,19 +83,35 @@ namespace D3D11On12
 
         static inline D3D12_VIDEO_DECODE_ARGUMENT_TYPE VideoDecodeArgumentType(D3D11_DDI_VIDEO_DECODER_BUFFER_TYPE Type11)
         {
+#ifdef __clang__
             static constexpr D3D12_VIDEO_DECODE_ARGUMENT_TYPE map[] =
             {
-                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE)-1,
+                D3D12_VIDEO_DECODE_ARGUMENT_TYPE_MAX_VALID,
                 D3D12_VIDEO_DECODE_ARGUMENT_TYPE_PICTURE_PARAMETERS,
-                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE)-1,
-                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE)-1,
-                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE)-1,
+                D3D12_VIDEO_DECODE_ARGUMENT_TYPE_MAX_VALID,
+                D3D12_VIDEO_DECODE_ARGUMENT_TYPE_MAX_VALID,
+                D3D12_VIDEO_DECODE_ARGUMENT_TYPE_MAX_VALID,
                 D3D12_VIDEO_DECODE_ARGUMENT_TYPE_INVERSE_QUANTIZATION_MATRIX,
                 D3D12_VIDEO_DECODE_ARGUMENT_TYPE_SLICE_CONTROL,
-                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE)-1,
-                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE)-1,
-                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE)-1,
+                D3D12_VIDEO_DECODE_ARGUMENT_TYPE_MAX_VALID,
+                D3D12_VIDEO_DECODE_ARGUMENT_TYPE_MAX_VALID,
+                D3D12_VIDEO_DECODE_ARGUMENT_TYPE_MAX_VALID,
             };
+#else
+            static constexpr D3D12_VIDEO_DECODE_ARGUMENT_TYPE map[] =
+            {
+                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE) 0xffffffff,
+                D3D12_VIDEO_DECODE_ARGUMENT_TYPE_PICTURE_PARAMETERS,
+                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE) 0xffffffff,
+                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE) 0xffffffff,
+                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE) 0xffffffff,
+                D3D12_VIDEO_DECODE_ARGUMENT_TYPE_INVERSE_QUANTIZATION_MATRIX,
+                D3D12_VIDEO_DECODE_ARGUMENT_TYPE_SLICE_CONTROL,
+                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE) 0xffffffff,
+                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE) 0xffffffff,
+                (D3D12_VIDEO_DECODE_ARGUMENT_TYPE) 0xffffffff,
+            };
+#endif
             if (Type11 >= 0 && Type11 <= D3D11_1DDI_VIDEO_DECODER_BUFFER_FILM_GRAIN)
             {
                 return map[Type11];

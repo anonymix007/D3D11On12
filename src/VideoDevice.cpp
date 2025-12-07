@@ -539,6 +539,9 @@ namespace D3D11On12
         D3D11on12_DDI_ENTRYPOINT_END_AND_RETURN_HR(hr);
     }
 
+#ifndef D3D11_KEY_EXCHANGE_HW_PROTECTION
+#define D3D11_KEY_EXCHANGE_HW_PROTECTION D3DWDDM2_0DDI_KEY_EXCHANGE_HW_PROTECTION
+#endif
     HRESULT APIENTRY VideoDevice::GetCryptoKeyExchangeType(_In_ D3D10DDI_HDEVICE hDevice, _In_ const GUID* pCryptoType, _In_ const GUID* pDecodeProfile, _In_ UINT Index, _Out_ GUID* pKeyExchangeType)
     {
         HRESULT hr = S_OK;

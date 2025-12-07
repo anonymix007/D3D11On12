@@ -628,4 +628,12 @@ namespace D3D11On12
         UINT m_ExecutionCount = 0;
         bool m_bMapDiscardCalled;
     };
+
+#if defined(__clang__)
+    template <typename Key>
+    PipelineStateCacheLocked<Key> PipelineStateCacheKeyComponent<Key>::GetCache()
+    {
+        return m_parentDevice.template GetPSOCache<Key>();
+    }
+#endif
 };

@@ -47,17 +47,20 @@ namespace D3D11On12
         destroy = InitializeDeferredHandle<TFunc>::Destroy;
     }
 
+    template <typename TFunc>
+    struct InitializeDeferredShaderHandle;
     template <typename... TArgs>
-    struct InitializeDeferredHandle<void (APIENTRY*)(D3D10DDI_HDEVICE, const UINT*, D3D10DDI_HSHADER, D3D10DDI_HRTSHADER, TArgs...)>
+    struct InitializeDeferredShaderHandle<void (APIENTRY*)(D3D10DDI_HDEVICE, const UINT*, D3D10DDI_HSHADER, D3D10DDI_HRTSHADER, TArgs...)>
     {
         static void Initialize(D3D10DDI_HDEVICE, const UINT*, D3D10DDI_HSHADER handle, D3D10DDI_HRTSHADER rtHandle, TArgs...)
         {
             reinterpret_cast<DeviceChildDeferred<D3D10DDI_HSHADER>*>(handle.pDrvPrivate)->m_ImmediateHandle = D3D10DDI_HSHADER{ rtHandle.handle };
         }
     };
+
     template <typename TFunc> void PopulateDeferredShaderInit(TFunc& init)
     {
-        init = InitializeDeferredHandle<TFunc>::Initialize;
+        init = InitializeDeferredShaderHandle<TFunc>::Initialize;
     }
 
     template <typename THandle> THandle GetImmediate(THandle deferred)

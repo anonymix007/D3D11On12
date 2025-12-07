@@ -2,7 +2,17 @@
 // Licensed under the MIT License.
 #pragma once
 
+#include <cmath>
+
 #include <D3D12TranslationLayerDependencyIncludes.h>
+
+#ifndef _MSC_VER
+__CRT_UUID_DECL(D3D11On12CreatorID,0xedbf5678,0x2960,0x4e81,0x84,0x29,0x99,0xd4,0xb2,0x63,0x0c,0x4e);
+__CRT_UUID_DECL(ID3D12DescriptorHeap, 0x8efb471d, 0x616c, 0x4f49, 0x90,0xf7, 0x12,0x7b,0xb7,0x63,0xfa,0x51)
+__CRT_UUID_DECL(ID3D12CompatibilityDevice, 0x8f1c0e3c, 0xfae3, 0x4a82, 0xb0, 0x98, 0xbf, 0xe1, 0x70, 0x82, 0x07, 0xff);
+__CRT_UUID_DECL(ID3D12Device1, 0x77acce80, 0x638e, 0x4e65, 0x88, 0x95, 0xc1, 0xf2, 0x33, 0x86, 0x86, 0x3e)
+#endif
+
 #include <D3D12TranslationLayerIncludes.h>
 
 #include <d3dx11on12.h>
@@ -60,33 +70,35 @@ constexpr T Align(T uValue, T uAlign)
 }
 extern bool GetCompatValue(PCSTR, UINT64*);
 
+#if 0
 TRACELOGGING_DECLARE_PROVIDER(g_hD3D11On12TraceLoggingProvider);
+#endif
 
 #define ASSERT assert
 
 class CDevice;
-#include "Util.hpp"
+#include "util.hpp"
 #include "DeviceChild.hpp"
 #include "PipelineStateCache.hpp"
 #include "Shader.hpp"
 #include "InputLayout.hpp"
 #include "State.hpp"
 #include "PipelineState.hpp"
-#include "Layer.hpp"
-#include "Adapter.hpp"
+#include "layer.hpp"
+#include "adapter.hpp"
 #include "VideoTranslate.hpp"
 #include "VideoDevice.hpp"
 #include "VideoDecode.hpp"
 #include "VideoProcess.hpp"
 #include "VideoProcessEnum.hpp"
-#include "Device.hpp"
-#include "Resource.hpp"
-#include "View.hpp"
+#include "device.hpp"
+#include "resource.hpp"
+#include "view.hpp"
 #include "Query.hpp"
 #include "Sampler.hpp"
 #include "Fence.hpp"
 
 #include "InputLayout.inl"
-#include "View.inl"
+#include "view.inl"
 #include "Shader.inl"
 

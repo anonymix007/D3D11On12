@@ -58,7 +58,7 @@ namespace D3D11On12
         typedef D3D10DDI_HRTSHADER TRTHandle;
 
     public: // Methods
-        Shader(Device* pDevice, D3D12TranslationLayer::unique_batched_ptr<D3D12TranslationLayer::Shader> spUnderlying) noexcept(false);
+        inline Shader(Device* pDevice, D3D12TranslationLayer::unique_batched_ptr<D3D12TranslationLayer::Shader> spUnderlying) noexcept(false);
         virtual ~Shader() noexcept { }
 
         static Shader<TIface>* CastFrom(THandle handle) noexcept

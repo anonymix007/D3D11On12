@@ -38,10 +38,23 @@ namespace D3D11On12
     }
 
     template<typename TIface>
-    Shader<TIface>::Shader(Device* pDevice, D3D12TranslationLayer::unique_batched_ptr<D3D12TranslationLayer::Shader> spUnderlying) noexcept(false)
+    inline Shader<TIface>::Shader(Device* pDevice, D3D12TranslationLayer::unique_batched_ptr<D3D12TranslationLayer::Shader> spUnderlying) noexcept(false)
         : m_bIsStreamOutput(false)
         , m_pUnderlying(std::move(spUnderlying))
-        , PipelineStateCacheKeyComponent(*pDevice)
+        , PipelineStateCacheKeyComponent<PSODescKey>(*pDevice)
+    {
+        if (m_pUnderlying)
+        {
+            ParseInputSemantics(); // throw( _com_error )
+            ParseOutputSemantics(); // throw( _com_error )
+        }
+    }
+
+    template<>
+    inline Shader<ID3D11ComputeShader>::Shader(Device* pDevice, D3D12TranslationLayer::unique_batched_ptr<D3D12TranslationLayer::Shader> spUnderlying) noexcept(false)
+        : m_bIsStreamOutput(false)
+        , m_pUnderlying(std::move(spUnderlying))
+        , PipelineStateCacheKeyComponent<ComputePSOKey>(*pDevice)
     {
         if (m_pUnderlying)
         {

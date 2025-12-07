@@ -42,10 +42,10 @@ namespace D3D11On12
         D3D12TranslationLayer::VIDEO_DECODE_INPUT_STREAM_ARGUMENTS m_inputArguments;
         D3D12TranslationLayer::VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS m_outputArguments;
         struct {
-            unique_comptr<D3D12TranslationLayer::Resource> frameArguments[D3D12_VIDEO_DECODE_MAX_ARGUMENTS];
-            unique_comptr<D3D12TranslationLayer::Resource> compressedBitstream;
-            unique_comptr<D3D12TranslationLayer::Resource> output;
-            unique_comptr<D3D12TranslationLayer::Resource> histogramBuffers[D3D12TranslationLayer::VIDEO_DECODE_MAX_HISTOGRAM_COMPONENTS];
+            D3D12TranslationLayer::unique_comptr<D3D12TranslationLayer::Resource> frameArguments[D3D12_VIDEO_DECODE_MAX_ARGUMENTS];
+            D3D12TranslationLayer::unique_comptr<D3D12TranslationLayer::Resource> compressedBitstream;
+            D3D12TranslationLayer::unique_comptr<D3D12TranslationLayer::Resource> output;
+            D3D12TranslationLayer::unique_comptr<D3D12TranslationLayer::Resource> histogramBuffers[D3D12TranslationLayer::VIDEO_DECODE_MAX_HISTOGRAM_COMPONENTS];
         } m_inUseResources;
         UINT m_frameNestCount;
     };

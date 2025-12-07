@@ -11,14 +11,21 @@ file(GLOB_RECURSE EXTERNAL_INC ../external/*.h ../external/*.hpp)
 
 add_library(d3d11on12 SHARED ${SRC} ${INC} ${INL} ${EXTERNAL_INC} d3d11on12.rc d3d11on12.def)
 
-if (CMAKE_VERSION VERSION_GREATER 3.16)
-	target_precompile_headers(d3d11on12 PRIVATE ../include/pch.hpp)
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+target_compile_options(d3d11on12 PUBLIC -fpermissive -Wno-error -Wno-switch -Wno-nonportable-include-path -Wno-c++11-narrowing -Wno-unused-command-line-argument -Wno-deprecated-enum-compare -Wno-defaulted-function-deleted)
+else("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+target_compile_options(d3d11on12 PUBLIC -fpermissive -Wno-template-body -Wno-non-template-friend -Wno-subobject-linkage -Wno-extra -Wno-error)
 endif()
+
+set_target_properties(d3d11on12 PROPERTIES PREFIX "")
+
+#if (CMAKE_VERSION VERSION_GREATER 3.16)
+#	target_precompile_headers(d3d11onvkd3d PRIVATE ../include/pch.hpp)
+#endif()
 
 FetchContent_Declare(
     d3d12translationlayer
-    GIT_REPOSITORY https://github.com/microsoft/D3D12TranslationLayer.git
-    GIT_TAG        master
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../D3D12TranslationLayer
 )
 FetchContent_MakeAvailable(d3d12translationlayer)
 

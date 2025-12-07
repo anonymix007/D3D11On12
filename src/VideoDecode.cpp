@@ -138,6 +138,9 @@ namespace D3D11On12
         D3D11on12_DDI_ENTRYPOINT_END_AND_RETURN_HR(hr);
     }
 
+#ifndef D3D11_DECODER_ENCRYPTION_HW_CENC
+#define D3D11_DECODER_ENCRYPTION_HW_CENC D3DWDDM2_0DDI_DECODER_ENCRYPTION_HW_CENC
+#endif
     void VideoDecode::BeginFrame(_In_ const D3DWDDM2_4DDIARG_VIDEODECODERBEGINFRAME *pVideoDecoderBeginFrame)
     {
         // we do not allow nested BeginFrames in 11on12. Ignoring nested calls.
